@@ -1,0 +1,13 @@
+package com.jpaex;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class JpAexApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(JpAexApplication.class, args);
+    }
+
+}
