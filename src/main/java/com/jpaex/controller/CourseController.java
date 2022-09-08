@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -35,10 +36,10 @@ import java.util.Set;
         }
 
         @GetMapping("/getParticipants")
-        public ResponseEntity <Set<Person>>getPersons(Long id) {
+        public ResponseEntity <List<Person>>getPersons(Long id) {
             Optional<Course> course=courServices.findById(id);
             if (course.isPresent()) {
-                Set<Person> participants= course.get().getPersons();
+                List<Person> participants=course.get().getPersons();
                 return new ResponseEntity<>(participants, HttpStatus.OK);
             } else {return new ResponseEntity<>(null,HttpStatus.NOT_FOUND); }
         }}

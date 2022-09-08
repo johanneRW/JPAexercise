@@ -12,9 +12,9 @@ public class Person {
     @Column
     private String name;
 
-
-
+    @Column
     private long course_id;
+
 
     public Person() {
     }
@@ -26,6 +26,7 @@ public class Person {
     public void setId(Long id) {
         this.id = id;
     }
+
 
     public String getName() {
         return name;
@@ -42,8 +43,6 @@ public class Person {
     public void setCourse_id(long course_id) {
         this.course_id = course_id;
     }
-
-
 
 
 }

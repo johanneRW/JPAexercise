@@ -1,24 +1,24 @@
 package com.jpaex.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
-
-import static javax.persistence.CascadeType.ALL;
 
 @Entity
 public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long courseId;
 
-    public Long getId() {
-        return id;
+    public Long getCourseId() {
+        return courseId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
     }
 
     @Column
@@ -30,10 +30,14 @@ public class Course {
     public Course() {
     }
 
-    @OneToMany(orphanRemoval=true)
-    @JoinColumn(name="course_id")
-    private Set<Person> persons;
-    public Set<Person> getPersons() {
+    @OneToMany(
+            mappedBy = "course_id",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Person> persons=  new ArrayList<Person>();
+
+    public List<Person> getPersons() {
         return persons;}
 
 
@@ -53,7 +57,7 @@ public class Course {
         this.startDate = startDate;
     }
 
-    public void setPersons(Set<Person> persons) {
+    public void setPersons(List<Person> persons) {
         this.persons = persons;
     }
 
