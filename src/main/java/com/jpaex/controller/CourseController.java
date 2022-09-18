@@ -3,13 +3,13 @@ package com.jpaex.controller;
 import com.jpaex.model.Course;
 import com.jpaex.model.Person;
 import com.jpaex.services.CourseServices;
+import com.jpaex.services.PersonServices;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -17,31 +17,33 @@ import java.util.Set;
     @RestController
     public class CourseController  {
 
-        private CourseServices courServices;
+        private CourseServices courseServices;
 
-        public CourseController(CourseServices courServices) {
-            this.courServices = courServices;
+        public CourseController(CourseServices courseServices) {
+            this.courseServices = courseServices;
         }
 
-
-        @GetMapping("/allCourse")
+        @GetMapping("/allCourses")
         public ResponseEntity<Set<Course>> getAllCourses() {
-            return new ResponseEntity<>(courServices.findAll(), HttpStatus.OK);
+            return new ResponseEntity<>(courseServices.findAll(), HttpStatus.OK);
         }
 
         @PostMapping("/addCourse")
         public ResponseEntity<Set<Course>> addCourse(Course course) {
-            courServices.save(course);
-            return new ResponseEntity<>(courServices.findAll(), HttpStatus.OK);
+            courseServices.save(course);
+            return new ResponseEntity<>(courseServices.findAll(), HttpStatus.OK);
         }
 
         @GetMapping("/getParticipants")
-        public ResponseEntity <List<Person>>getPersons(Long id) {
-            Optional<Course> course=courServices.findById(id);
-            if (course.isPresent()) {
-                List<Person> participants=course.get().getPersons();
-                return new ResponseEntity<>(participants, HttpStatus.OK);
-            } else {return new ResponseEntity<>(null,HttpStatus.NOT_FOUND); }
-        }}
+        public ResponseEntity<Set<Person>> getPersons(Long id) {
+            Optional<Course> course_ = courseServices.findById(id);
+            if (course_.isPresent()) {
+                Course course = course_.get();
+                return new ResponseEntity<>(course.getPersons(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+        }
+    }
 
 

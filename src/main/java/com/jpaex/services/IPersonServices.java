@@ -2,5 +2,5 @@ package com.jpaex.services;
 
 import com.jpaex.model.Person;
 
-public interface IPersonServices extends CrudService<Person, Long>{
+public interface IPersonServices extends ICrudService<Person, Long> {
 }

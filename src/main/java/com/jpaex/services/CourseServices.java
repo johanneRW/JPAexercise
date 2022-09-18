@@ -28,7 +28,7 @@ public class CourseServices implements ICourseServices{
     @Override
     public Course save(Course object) {
         Course course = (Course) object;
-        return courseRepo.save(object);}
+        return courseRepo.save(course);}
 
     @Override
     public void delete(Course object) {

@@ -1,11 +1,13 @@
 package com.jpaex.model;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
 
+import javax.persistence.*;
+import java.util.*;
+
+@Data
 @Entity
 public class Course {
 
@@ -13,52 +15,15 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long courseId;
 
-    public Long getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(Long courseId) {
-        this.courseId = courseId;
-    }
-
-    @Column
     private String courseName;
 
-    @Column
+    @JsonFormat(pattern="dd-MM-yyyy")
     private Date startDate;
+
+
+    @OneToMany(mappedBy = "course")
+    private Set<Person> persons = new HashSet<>();
 
     public Course() {
     }
-
-    @OneToMany(
-            mappedBy = "course_id",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<Person> persons=  new ArrayList<Person>();
-
-    public List<Person> getPersons() {
-        return persons;}
-
-
-    public String getCourseName() {
-        return courseName;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public void setPersons(List<Person> persons) {
-        this.persons = persons;
-    }
-
 }
